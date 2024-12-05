@@ -1,60 +1,88 @@
-function pierrePapierCiseaux() {
+document.addEventListener("DOMContentLoaded", () => {
+    const choixPossibles = ["Pierre", "Papier", "Ciseaux"];
+    let mode = "solo";
     let scoreJoueur = 0;
     let scoreOrdinateur = 0;
-
-    const choixPossibles = ["Pierre", "Papier", "Ciseaux"];
-
-    while (true) {
-      // Demander au joueur de choisir avec des chiffres
-    let choixJoueur = prompt(
-        "Choisissez :\n1 - Pierre\n2 - Papier\n3 - Ciseaux\n(ou tapez '0' pour quitter)"
-    );
-
-      // Gérer la sortie du jeu
-    if (choixJoueur === null || choixJoueur === "0") {
-        alert(
-        `Merci d'avoir joué ! Score final - Vous : ${scoreJoueur}, Ordinateur : ${scoreOrdinateur}`
-        );
-        break;
-    }
+    let scoreJoueur1 = 0;
+    let scoreJoueur2 = 0;
+    let joueurActuel = 1;
+    let choixJoueur1 = null;
   
-      // Convertir l'entrée en un entier et valider
-    choixJoueur = parseInt(choixJoueur, 10);
-    if (![1, 2, 3].includes(choixJoueur)) {
-        alert(
-        "Entrée invalide. Veuillez choisir un chiffre entre 1 (Pierre), 2 (Papier) ou 3 (Ciseaux)."
-        );
-        continue;
-    }
+    const btnSolo = document.getElementById("btn-solo");
+    const btnMultijoueur = document.getElementById("btn-multijoueur");
+    const options = document.querySelectorAll(".btn-option");
+    const resultDiv = document.getElementById("result");
+    const modeSoloDiv = document.getElementById("mode-solo");
+    const modeMultijoueurDiv = document.getElementById("mode-multijoueur");
   
-      // Traduire le choix du joueur en texte
-    const choixJoueurTexte = choixPossibles[choixJoueur - 1];
+    const updateScores = () => {
+      document.getElementById("score-joueur").textContent = scoreJoueur;
+      document.getElementById("score-ordinateur").textContent = scoreOrdinateur;
+      document.getElementById("score-joueur1").textContent = scoreJoueur1;
+      document.getElementById("score-joueur2").textContent = scoreJoueur2;
+    };
   
-      // Choix aléatoire de l'ordinateur
-    const choixOrdinateurTexte =
-        choixPossibles[Math.floor(Math.random() * choixPossibles.length)];
-    alert(`Vous avez choisi : ${choixJoueurTexte}`);
-    alert(`Ordinateur a choisi : ${choixOrdinateurTexte}`);
-
-      // Déterminer le gagnant
-    if (choixJoueurTexte === choixOrdinateurTexte) {
-        alert("Égalité !");
-    } else if (
-        (choixJoueurTexte === "Pierre" && choixOrdinateurTexte === "Ciseaux") ||
-        (choixJoueurTexte === "Papier" && choixOrdinateurTexte === "Pierre") ||
-        (choixJoueurTexte === "Ciseaux" && choixOrdinateurTexte === "Papier")
-    ) {
-        alert("Vous gagnez cette manche !");
-        scoreJoueur++;
-    } else {
-        alert("L'ordinateur gagne cette manche !");
-        scoreOrdinateur++;
-    }
-
-      // Afficher le score
-    alert(`Score - Vous : ${scoreJoueur}, Ordinateur : ${scoreOrdinateur}`);
-    }
-}
-
-  // Lancer le jeu
-pierrePapierCiseaux();
+    const determinerGagnant = (choix1, choix2) => {
+      if (choix1 === choix2) return "Égalité";
+      if (
+        (choix1 === "Pierre" && choix2 === "Ciseaux") ||
+        (choix1 === "Papier" && choix2 === "Pierre") ||
+        (choix1 === "Ciseaux" && choix2 === "Papier")
+      ) {
+        return "Joueur 1";
+      }
+      return "Joueur 2";
+    };
+  
+    btnSolo.addEventListener("click", () => {
+      mode = "solo";
+      modeSoloDiv.classList.remove("hidden");
+      modeMultijoueurDiv.classList.add("hidden");
+    });
+  
+    btnMultijoueur.addEventListener("click", () => {
+      mode = "multijoueur";
+      modeSoloDiv.classList.add("hidden");
+      modeMultijoueurDiv.classList.remove("hidden");
+      joueurActuel = 1;
+      choixJoueur1 = null;
+    });
+  
+    options.forEach((button) => {
+      button.addEventListener("click", () => {
+        const choix = button.dataset.choice;
+  
+        if (mode === "solo") {
+          const choixOrdinateur =
+            choixPossibles[Math.floor(Math.random() * choixPossibles.length)];
+          const gagnant = determinerGagnant(choix, choixOrdinateur);
+  
+          if (gagnant === "Joueur 1") {
+            scoreJoueur++;
+          } else if (gagnant === "Joueur 2") {
+            scoreOrdinateur++;
+          }
+  
+          resultDiv.textContent = `Vous : ${choix}, Ordinateur : ${choixOrdinateur}. ${gagnant} gagne !`;
+        } else if (mode === "multijoueur") {
+          if (joueurActuel === 1) {
+            choixJoueur1 = choix;
+            joueurActuel = 2;
+            resultDiv.textContent = "Joueur 2, à vous de jouer !";
+          } else {
+            const gagnant = determinerGagnant(choixJoueur1, choix);
+            if (gagnant === "Joueur 1") {
+              scoreJoueur1++;
+            } else if (gagnant === "Joueur 2") {
+              scoreJoueur2++;
+            }
+            resultDiv.textContent = `Joueur 1 : ${choixJoueur1}, Joueur 2 : ${choix}. ${gagnant} gagne !`;
+            joueurActuel = 1;
+            choixJoueur1 = null;
+          }
+        }
+  
+        updateScores();
+      });
+    });
+  });
