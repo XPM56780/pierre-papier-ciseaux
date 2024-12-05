@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pierre, Papier, Ciseaux</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1>Pierre, Papier, Ciseaux</h1>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pierre, Papier, Ciseaux</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Pierre, Papier, Ciseaux</h1>
 
-  <!-- Scoreboard -->
-  <div class="scoreboard">
-    <div id="mode-solo">
-      <h2>Mode Solo</h2>
-      <p>Joueur : <span id="score-joueur">0</span></p>
-      <p>Ordinateur : <span id="score-ordinateur">0</span></p>
-    </div>
-    <div id="mode-multijoueur" class="hidden">
-      <h2>Mode Multijoueur</h2>
-      <p>Joueur 1 : <span id="score-joueur1">0</span></p>
-      <p>Joueur 2 : <span id="score-joueur2">0</span></p>
-    </div>
-  </div>
+        <!-- Scoreboard -->
+        <div class="scoreboard">
+            <div id="mode-solo">
+                <h2>Mode Solo</h2>
+                <p>Joueur : <span id="score-joueur">0</span></p>
+                <p>Ordinateur : <span id="score-ordinateur">0</span></p>
+            </div>
+            <div id="mode-multijoueur" class="hidden">
+                <h2>Mode Multijoueur</h2>
+                <p>Joueur 1 : <span id="score-joueur1">0</span></p>
+                <p>Joueur 2 : <span id="score-joueur2">0</span></p>
+            </div>
+        </div>
 
-  <!-- Mode Selection -->
-  <div class="mode-selection">
-    <button id="btn-solo">Mode Solo</button>
-    <button id="btn-multijoueur">Mode Multijoueur</button>
-  </div>
+        <!-- Mode Selection -->
+        <div class="mode-selection">
+            <button id="btn-solo">Mode Solo</button>
+            <button id="btn-multijoueur">Mode Multijoueur</button>
+        </div>
 
-  <!-- Game Options -->
-  <div class="game-options">
-    <button class="btn-option" data-choice="Pierre">Pierre</button>
-    <button class="btn-option" data-choice="Papier">Papier</button>
-    <button class="btn-option" data-choice="Ciseaux">Ciseaux</button>
-  </div>
+        <!-- Game Options -->
+        <div class="game-options">
+            <button class="btn-option" data-choice="Pierre">Pierre</button>
+            <button class="btn-option" data-choice="Papier">Papier</button>
+            <button class="btn-option" data-choice="Ciseaux">Ciseaux</button>
+        </div>
 
-  <!-- Result Display -->
-  <div id="result"></div>
+        <!-- Result Display -->
+        <div id="result"></div>
 
-  <script src="script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>
