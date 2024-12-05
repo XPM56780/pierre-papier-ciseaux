@@ -5,33 +5,44 @@ function pierrePapierCiseaux() {
     const choixPossibles = ["Pierre", "Papier", "Ciseaux"];
 
     while (true) {
-      // Demander au joueur de choisir
-    let choixJoueur = prompt("Choisissez : Pierre, Papier ou Ciseaux. (ou tapez 'Quitter' pour arrêter)");
-    
+      // Demander au joueur de choisir avec des chiffres
+    let choixJoueur = prompt(
+        "Choisissez :\n1 - Pierre\n2 - Papier\n3 - Ciseaux\n(ou tapez '0' pour quitter)"
+    );
+
       // Gérer la sortie du jeu
-    if (choixJoueur === null || choixJoueur.toLowerCase() === "quitter") {
-        alert(`Merci d'avoir joué ! Score final - Vous : ${scoreJoueur}, Ordinateur : ${scoreOrdinateur}`);
+    if (choixJoueur === null || choixJoueur === "0") {
+        alert(
+        `Merci d'avoir joué ! Score final - Vous : ${scoreJoueur}, Ordinateur : ${scoreOrdinateur}`
+        );
         break;
     }
-
-      // Valider l'entrée du joueur
-    choixJoueur = choixJoueur.charAt(0).toUpperCase() + choixJoueur.slice(1).toLowerCase();
-    if (!choixPossibles.includes(choixJoueur)) {
-        alert("Entrée invalide. Veuillez choisir entre Pierre, Papier ou Ciseaux.");
+  
+      // Convertir l'entrée en un entier et valider
+    choixJoueur = parseInt(choixJoueur, 10);
+    if (![1, 2, 3].includes(choixJoueur)) {
+        alert(
+        "Entrée invalide. Veuillez choisir un chiffre entre 1 (Pierre), 2 (Papier) ou 3 (Ciseaux)."
+        );
         continue;
     }
-
+  
+      // Traduire le choix du joueur en texte
+    const choixJoueurTexte = choixPossibles[choixJoueur - 1];
+  
       // Choix aléatoire de l'ordinateur
-      const choixOrdinateur = choixPossibles[Math.floor(Math.random() * choixPossibles.length)];
-    alert(`Ordinateur a choisi : ${choixOrdinateur}`);
+    const choixOrdinateurTexte =
+        choixPossibles[Math.floor(Math.random() * choixPossibles.length)];
+    alert(`Vous avez choisi : ${choixJoueurTexte}`);
+    alert(`Ordinateur a choisi : ${choixOrdinateurTexte}`);
 
       // Déterminer le gagnant
-    if (choixJoueur === choixOrdinateur) {
+    if (choixJoueurTexte === choixOrdinateurTexte) {
         alert("Égalité !");
     } else if (
-        (choixJoueur === "Pierre" && choixOrdinateur === "Ciseaux") ||
-        (choixJoueur === "Papier" && choixOrdinateur === "Pierre") ||
-        (choixJoueur === "Ciseaux" && choixOrdinateur === "Papier")
+        (choixJoueurTexte === "Pierre" && choixOrdinateurTexte === "Ciseaux") ||
+        (choixJoueurTexte === "Papier" && choixOrdinateurTexte === "Pierre") ||
+        (choixJoueurTexte === "Ciseaux" && choixOrdinateurTexte === "Papier")
     ) {
         alert("Vous gagnez cette manche !");
         scoreJoueur++;
