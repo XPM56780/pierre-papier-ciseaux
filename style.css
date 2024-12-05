@@ -100,7 +100,7 @@ h1 {
     font-size: 1.8rem;
     font-weight: bold;
     color: #39ff14; /* Couleur néon vert */
-    text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+    /* text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14; */
 }
 
 /* Bouton masqué */
